@@ -1,0 +1,113 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - app_network
+  # Service name - referenced in other services as hostname "db"
+  db:
+    image: postgres:15-alpine  # Official PostgreSQL image using Alpine Linux
+    restart: always  # Automatic restart policy
+    env_file: # Environment variables source
+      - .env
+    healthcheck: # to ensure the database is ready before starting the application
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]  # Uses PostgreSQL's connection check
+      interval: 10s  # Check frequency
+      timeout: 5s  # Max time per check
+      retries: 5 # Allowed failures before "unhealthy"
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+  # Redis for Celery broker and cache
+  redis:
+    image: redis:7-alpine
+    env_file:
+      - .env
+    command:
+      - redis-server
+      - --requirepass ${REDIS_PASSWORD}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [
+        "CMD", "redis-cli",
+        "-a", "${REDIS_PASSWORD}",
+        "ping"
+      ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+  # Django
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000 # start the Django development server
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    networks:
+      - app_network
+
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile  # Build image using Dockerfile in current directory
+    command: celery -A config.celery worker -l info
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - backend
+    healthcheck: # ensure services are properly running
+      test: ["CMD", "celery", "-A", "config.celery", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  media_volume:
+
+networks:
+  app_network:
+    driver: bridge
