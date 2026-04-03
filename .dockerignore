@@ -29,13 +29,8 @@ Dockerfile*
 docker-compose*
 compose.y*ml
 .dockerignore
-.env
 
 # Root level
 README.md
 LICENSE
 node_modules
-requirements.txt
-index.js
-package.json
-package-lock.json
