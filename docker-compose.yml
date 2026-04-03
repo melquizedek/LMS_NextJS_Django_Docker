@@ -1,5 +1,12 @@
+x-common-config: &common-config
+  networks:
+    - app_network
+  env_file:
+    - .env
+
 services:
   frontend:
+    <<: *common-config
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
@@ -7,22 +14,18 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    env_file:
-      - .env
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
-    networks:
-      - app_network
+
   # Service name - referenced in other services as hostname "db"
   db:
+    <<: *common-config
     image: postgres:15-alpine  # Official PostgreSQL image using Alpine Linux
     restart: always  # Automatic restart policy
-    env_file: # Environment variables source
-      - .env
     healthcheck: # to ensure the database is ready before starting the application
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]  # Uses PostgreSQL's connection check
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]  # Uses PostgreSQL's connection check
       interval: 10s  # Check frequency
       timeout: 5s  # Max time per check
       retries: 5 # Allowed failures before "unhealthy"
@@ -30,13 +33,11 @@ services:
       - "5436:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app_network
+
   # Redis for Celery broker and cache
   redis:
+    <<: *common-config
     image: redis:7-alpine
-    env_file:
-      - .env
     command:
       - redis-server
       - --requirepass ${REDIS_PASSWORD}
@@ -48,24 +49,19 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: [
-        "CMD", "redis-cli",
-        "-a", "${REDIS_PASSWORD}",
-        "ping"
-      ]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - app_network
+
   # Django
   backend:
+    <<: *common-config
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: backend  # Named image to be reused by celery_worker
     command: python manage.py runserver 0.0.0.0:8000 # start the Django development server
-    env_file:
-      - .env
     ports:
       - "8000:8000"
     depends_on:
@@ -77,30 +73,26 @@ services:
       - ./backend:/app
       - static_volume:/app/static
       - media_volume:/app/media
-    networks:
-      - app_network
 
   celery_worker:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile  # Build image using Dockerfile in current directory
+    <<: *common-config
+    image: backend  # Reusing the same image as backend
     command: celery -A config.celery worker -l info
     volumes:
       - ./backend:/app
-    env_file:
-      - .env
     depends_on:
-      - db
-      - redis
-      - backend
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started
     healthcheck: # ensure services are properly running
       test: ["CMD", "celery", "-A", "config.celery", "inspect", "ping"]
       interval: 30s
       timeout: 10s
       retries: 3
     restart: unless-stopped
-    networks:
-      - app_network
 
 volumes:
   postgres_data:

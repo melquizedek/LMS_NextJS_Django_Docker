@@ -1,38 +1,41 @@
-# Include any files or directories that you don't want to be copied to your
-# container here (e.g., local build artifacts, temporary files, etc.).
-#
-# For more help, visit the .dockerignore file reference guide at
-# https://docs.docker.com/go/build-context-dockerignore/
-
+# Global ignore rules for when building from root context
 **/.DS_Store
-**/__pycache__
-**/.venv
-**/.classpath
-**/.dockerignore
-**/.env
 **/.git
 **/.gitignore
-**/.project
-**/.settings
-**/.toolstarget
-**/.vs
-**/.vscode
 **/.idea
-**/*.*proj.user
+**/.vscode
 **/*.dbmdl
 **/*.jfm
+**/*.jfm
 **/bin
-**/charts
-**/docker-compose*
-**/compose.y*ml
-**/Dockerfile*
-**/node_modules
-**/npm-debug.log
 **/obj
-**/secrets.dev.yaml
-**/values.dev.yaml
-Dockerfile
-docker-compose.yml
+
+# Specific service paths to ignore if built from root
+backend/__pycache__
+backend/.venv
+backend/media
+backend/static
+backend/staticfiles
+backend/db.sqlite3
+
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/build
+frontend/dist
+
+# Docker related
+Dockerfile*
+docker-compose*
+compose.y*ml
 .dockerignore
-LICENSE
+.env
+
+# Root level
 README.md
+LICENSE
+node_modules
+requirements.txt
+index.js
+package.json
+package-lock.json

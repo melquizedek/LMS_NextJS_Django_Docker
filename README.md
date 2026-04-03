@@ -1,4 +1,4 @@
-# Portfolio Django Next.js - Loan Management System(LMS)
+# Django NextJS Docker - Loan Management System(LMS)
 
 A full-stack portfolio application built with Django REST Framework backend and Next.js frontend, containerized with Docker for seamless deployment.
 
