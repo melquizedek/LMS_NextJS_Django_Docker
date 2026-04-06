@@ -1,0 +1,49 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.vs
+*.sublime-project
+*.sublime-workspace
+
+# Environment and Secrets
+.env
+.env.*
+!.env.example
+
+# Common dependencies and build artifacts (handled in subdirectories, but root level ones too)
+node_modules/
+dist/
+build/
+bin/
+obj/
+/tmp
+/out-tsc
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.venv
+venv/
+env/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database (local)
+postgres/
+db.sqlite3
+db.sqlite3-journal
+
+# Other
+/.pnp
+.pnp.js

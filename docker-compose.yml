@@ -18,6 +18,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
+      - frontend_media:/app/public
 
   # Service name - referenced in other services as hostname "db"
   db:
@@ -72,7 +73,7 @@ services:
     volumes:
       - ./backend:/app
       - static_volume:/app/static
-      - media_volume:/app/media
+      - backend_media:/app/media
 
   celery_worker:
     <<: *common-config
@@ -98,7 +99,8 @@ volumes:
   postgres_data:
   redis_data:
   static_volume:
-  media_volume:
+  backend_media:
+  frontend_media:
 
 networks:
   app_network:
