@@ -17,8 +17,7 @@ RUN apt-get update \
 
 # Install Python dependencies
 COPY ./requirements/base.txt /app/
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r base.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r base.txt
 
 # Copy project
 COPY . /app/
