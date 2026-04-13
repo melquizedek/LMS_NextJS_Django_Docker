@@ -1,4 +1,4 @@
-import { type LucideIcon, Home, Briefcase, Car, FileText, User, Shield, Calculator } from 'lucide-react';
+import { type LucideIcon, Home, Briefcase, Car, FileText, User, Shield, Calculator, FolderOpen } from 'lucide-react';
 
 export type NavLink = {
     href: string;
@@ -11,6 +11,7 @@ export const navLinks: NavLink[] = [
     { href: '/products', label: 'Loan Products', icon: Briefcase },
     { href: '/calculator', label: 'Calculator', icon: Calculator },
     { href: '/apply', label: 'Apply for Loan', icon: FileText },
+    { href: '/loan-applications', label: 'My Loan Applications', icon: FolderOpen },
     { href: '/profile', label: 'Profile', icon: User },
     { href: '/admin/generate-schedule', label: 'Admin Tool', icon: Shield },
 ];

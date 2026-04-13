@@ -22,13 +22,6 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
-    ROLE_CHOICES = [
-        ('borrower', 'Borrower'),
-        ('credit_officer', 'Credit Officer'),
-        ('treasury', 'Treasury'),
-        ('admin', 'Admin'),
-    ]
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='borrower')
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=13, blank=True, null=True, unique=True)
     is_email_verified = models.BooleanField(default=False)
