@@ -11,13 +11,13 @@ class UserProfileInline(admin.StackedInline):
 
 class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileInline,)
-    list_display = ('email', 'username', 'is_email_verified', 'is_phone_verified', 'is_staff', 'role', 'date_joined')
-    list_filter = ('role', 'is_email_verified', 'is_phone_verified', 'is_staff', 'is_superuser', 'is_active')
+    list_display = ('email', 'username', 'is_email_verified', 'is_phone_verified', 'is_staff', 'date_joined')
+    list_filter = ('is_email_verified', 'is_phone_verified', 'is_staff', 'is_superuser', 'is_active')
     search_fields = ('email', 'username', 'phone_number')
 
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Personal info', {'fields': ('role', 'first_name', 'last_name', 'email')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions',)
         }),

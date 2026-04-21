@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('apps.accounts.urls')),
-    path('api/amortization/', include('apps.amortization.urls'))
+    path('api/amortization/', include('apps.amortization.urls')),
+    path('api/loan-products/', include('apps.loan_product.urls')),
 ]
 
 # Serve media files during development

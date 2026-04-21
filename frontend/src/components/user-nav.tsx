@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Bell, User, LogOut, Settings } from 'lucide-react'
-import { userProfile } from '@/lib/data';
 import {
     Popover,
     PopoverContent,
@@ -13,19 +12,26 @@ import {
 } from "@/components/ui/popover"
 import { notifications } from '@/lib/data';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { clearSession, getUserProfile, getUserDisplayName, type UserProfile } from '@/lib/auth';
 
 export function UserNav() {
     const router = useRouter();
+    const [profile, setProfile] = useState<UserProfile | null>(null);
+
+    useEffect(() => {
+        setProfile(getUserProfile());
+    }, []);
+
+    const displayName = profile ? getUserDisplayName(profile) : '';
+    const email = profile?.email ?? '';
 
     const getInitials = (name: string) => {
         return name.split(' ').map(n => n[0]).join('');
     }
 
     const handleLogout = () => {
-        Cookies.remove('accessToken');
-        Cookies.remove('refreshToken');
-        Cookies.remove('userProfile');
+        clearSession();
         router.push('/login');
     };
 
@@ -72,17 +78,17 @@ export function UserNav() {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                         <Avatar className="h-9 w-9">
-                            <AvatarImage src="https://picsum.photos/seed/user-avatar/100/100" alt={userProfile.name} data-ai-hint="person portrait" />
-                            <AvatarFallback>{getInitials(userProfile.name)}</AvatarFallback>
+                            <AvatarImage src="https://picsum.photos/seed/user-avatar/100/100" alt={displayName} data-ai-hint="person portrait" />
+                            <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
                         </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                     <DropdownMenuLabel className="font-normal">
                         <div className="flex flex-col space-y-1">
-                            <p className="text-sm font-medium leading-none">{userProfile.name}</p>
+                            <p className="text-sm font-medium leading-none">{displayName}</p>
                             <p className="text-xs leading-none text-muted-foreground">
-                                {userProfile.email}
+                                {email}
                             </p>
                         </div>
                     </DropdownMenuLabel>

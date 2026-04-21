@@ -1,3 +1,5 @@
+'use client'
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -6,14 +8,22 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { recentPayments, notifications, userProfile } from "@/lib/data";
 import { ArrowRight, Bell, Clock, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
+import {getUserProfile, UserProfile} from "@/lib/auth";
 
 export default function DashboardPage() {
     const loanProgress = 65;
 
+    const [profile, setProfile] = useState<UserProfile | null>(null);
+
+    useEffect(() => {
+        setProfile(getUserProfile());
+    }, []);
+
     return (
         <div className="flex flex-col gap-8">
             <div>
-                <h1 className="text-3xl font-headline font-bold tracking-tight">Welcome Back, {userProfile.name.split(' ')[0]}!</h1>
+                <h1 className="text-3xl font-headline font-bold tracking-tight">Welcome Back, {profile?.profile?.first_name ?? 'Guest'}!</h1>
                 <p className="text-muted-foreground">Here's a summary of your lending activity.</p>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

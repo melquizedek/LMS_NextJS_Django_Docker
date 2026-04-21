@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Local apps
     'apps.accounts',
     'apps.amortization',
+    'apps.loan_product',
 ]
 
 MIDDLEWARE = [

@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import Cookies from 'js-cookie';
+import { setSession, type AuthSession } from '@/lib/auth';
 import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
     const handleLogin = async (values: LoginFormValues) => {
         // TODO: Implement actual login logic with the validated values
-        console.log("Login values:", values);
+        console.log("handleLogin:", values);
         const response = await fetch('http://127.0.0.1:8000/api/auth/login/', {
             method: 'POST',
             headers: {
@@ -47,10 +47,7 @@ export default function LoginPage() {
         const data = await response.json();
         // console.log("Login response:", data);
         if (response.ok && response.status === 200) {
-            // Set the JWT token in a cookie upon successful login
-            Cookies.set('accessToken', data.access, { expires: 1 }); // Expires in 1 day
-            Cookies.set('refreshToken', data.refresh, { expires: 1 }); // Expires in 1 day
-            Cookies.set('userProfile', JSON.stringify(data.user), { expires: 1 });
+            setSession(data as AuthSession);
             router.push('/dashboard');
         } else {
             setLoginError(data.detail || "Invalid email or password. Please try again.");
