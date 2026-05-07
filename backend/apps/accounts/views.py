@@ -4,8 +4,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from django.utils import timezone
-from django.shortcuts import get_object_or_404
 from .models import User, UserProfile, EmailVerification, PhoneVerification
 from .serializers import (
     UserRegistrationSerializer, UserSerializer, UserProfileSerializer,

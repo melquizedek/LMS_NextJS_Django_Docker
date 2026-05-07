@@ -13,12 +13,18 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - backend
+      backend:
+          condition: service_started
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
       - /app/.next
-      - frontend_media:/app/public
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Service name - referenced in other services as hostname "db"
   db:
@@ -31,7 +37,7 @@ services:
       timeout: 5s  # Max time per check
       retries: 5 # Allowed failures before "unhealthy"
     ports:
-      - "5436:5432"
+      - "127.0.0.1:5436:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -45,7 +51,7 @@ services:
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     restart: unless-stopped
     volumes:
       - redis_data:/data
@@ -74,6 +80,12 @@ services:
       - ./backend:/app
       - static_volume:/app/static
       - backend_media:/app/media
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/login/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   celery_worker:
     <<: *common-config
@@ -100,7 +112,6 @@ volumes:
   redis_data:
   static_volume:
   backend_media:
-  frontend_media:
 
 networks:
   app_network:

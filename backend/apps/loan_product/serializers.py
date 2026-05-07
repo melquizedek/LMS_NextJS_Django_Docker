@@ -13,6 +13,17 @@ class LoanProductSerializer(serializers.Serializer):
     max_term_months = serializers.IntegerField(min_value=1)
     is_active = serializers.BooleanField(default=True)
 
+    def validate_name(self, value):
+        """
+        Check that the name is unique (case-insensitive).
+        """
+        queryset = LoanProduct.objects.filter(name__iexact=value)
+        if self.instance:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise serializers.ValidationError("A loan product with this name already exists.")
+        return value
+
     def validate(self, data):
         min_amount = data.get('min_amount')
         max_amount = data.get('max_amount')
