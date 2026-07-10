@@ -93,7 +93,8 @@ export default function SignupPage() {
         const mobilePhoneNumber = `${dialCode}${data.mobileNumber}`;
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/auth/register/', {
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin;
+            const response = await fetch(`${baseUrl}/api/auth/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
