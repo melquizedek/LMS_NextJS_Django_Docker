@@ -36,7 +36,7 @@ export default function LoginPage() {
     const handleLogin = async (values: LoginFormValues) => {
         // TODO: Implement actual login logic with the validated values
         console.log("handleLogin:", values);
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin;
+        const baseUrl = process.env.NEXT_PUBLIC_API_HOST || window.location.origin;
         const response = await fetch(`${baseUrl}/api/auth/login/`, {
             method: 'POST',
             headers: {

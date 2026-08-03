@@ -81,8 +81,13 @@ export default function SignupPage() {
             middleName: '',
             lastName: '',
             email: '',
-            countryCode: undefined,
+            countryCode: '',
             mobileNumber: '',
+            birthMonth: '',
+            birthDay: '',
+            birthYear: '',
+            password: '',
+            confirmPassword: '',
         },
     });
 
@@ -93,7 +98,7 @@ export default function SignupPage() {
         const mobilePhoneNumber = `${dialCode}${data.mobileNumber}`;
 
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin;
+            const baseUrl = process.env.NEXT_PUBLIC_API_HOST || window.location.origin;
             const response = await fetch(`${baseUrl}/api/auth/register/`, {
                 method: 'POST',
                 headers: {
@@ -164,7 +169,7 @@ export default function SignupPage() {
                                     name="firstName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>First Name</FormLabel>
+                                            <FormLabel className="text-foreground">First Name</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="John" {...field} />
                                             </FormControl>
@@ -177,7 +182,7 @@ export default function SignupPage() {
                                     name="middleName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Middle Name</FormLabel>
+                                            <FormLabel className="text-foreground">Middle Name</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="Michael" {...field} />
                                             </FormControl>
@@ -190,7 +195,7 @@ export default function SignupPage() {
                                     name="lastName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Last Name</FormLabel>
+                                            <FormLabel className="text-foreground">Last Name</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="Doe" {...field} />
                                             </FormControl>
@@ -205,7 +210,7 @@ export default function SignupPage() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email Address</FormLabel>
+                                        <FormLabel className="text-foreground">Email Address</FormLabel>
                                         <FormControl>
                                             <Input type="email" placeholder="m@example.com" {...field} />
                                         </FormControl>
@@ -215,14 +220,14 @@ export default function SignupPage() {
                             />
 
                             <div className="space-y-2">
-                                <FormLabel>Mobile Phone Number</FormLabel>
+                                <FormLabel className="text-foreground">Mobile Phone Number</FormLabel>
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-[180px_1fr]">
                                     <FormField
                                         control={form.control}
                                         name="countryCode"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <Select onValueChange={field.onChange} value={field.value}>
                                                     <FormControl>
                                                         <SelectTrigger>
                                                             <SelectValue placeholder="Country" />
@@ -256,80 +261,86 @@ export default function SignupPage() {
                             </div>
 
 
-                            <div className="space-y-2">
-                                <FormLabel>Date of birth</FormLabel>
-                                <div className="grid grid-cols-3 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="birthMonth"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Month" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {months.map((month) => (
-                                                            <SelectItem key={month.value} value={month.value}>
-                                                                {month.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="birthDay"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Day" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {days.map((day) => (
-                                                            <SelectItem key={day} value={day}>
-                                                                {day}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="birthYear"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Year" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {years.map((year) => (
-                                                            <SelectItem key={year} value={year}>
-                                                                {year}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
-                            </div>
+                            <FormField
+                                control={form.control}
+                                name="birthDay"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-foreground">Date of birth</FormLabel>
+                                        <div className="grid grid-cols-3 gap-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="birthMonth"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <FormControl>
+                                                                <SelectTrigger>
+                                                                    <SelectValue placeholder="Month" />
+                                                                </SelectTrigger>
+                                                            </FormControl>
+                                                            <SelectContent>
+                                                                {months.map((month) => (
+                                                                    <SelectItem key={month.value} value={month.value}>
+                                                                        {month.label}
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="birthDay"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <FormControl>
+                                                                <SelectTrigger>
+                                                                    <SelectValue placeholder="Day" />
+                                                                </SelectTrigger>
+                                                            </FormControl>
+                                                            <SelectContent>
+                                                                {days.map((day) => (
+                                                                    <SelectItem key={day} value={day}>
+                                                                        {day}
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="birthYear"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <Select onValueChange={field.onChange} value={field.value}>
+                                                            <FormControl>
+                                                                <SelectTrigger>
+                                                                    <SelectValue placeholder="Year" />
+                                                                </SelectTrigger>
+                                                            </FormControl>
+                                                            <SelectContent>
+                                                                {years.map((year) => (
+                                                                    <SelectItem key={year} value={year}>
+                                                                        {year}
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -338,7 +349,7 @@ export default function SignupPage() {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Password</FormLabel>
+                                            <FormLabel className="text-foreground">Password</FormLabel>
                                             <FormControl>
                                                 <Input type="password" placeholder="********" {...field} />
                                             </FormControl>
@@ -351,7 +362,7 @@ export default function SignupPage() {
                                     name="confirmPassword"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Re-type Password</FormLabel>
+                                            <FormLabel className="text-foreground">Re-type Password</FormLabel>
                                             <FormControl>
                                                 <Input type="password" placeholder="********" {...field} />
                                             </FormControl>
