@@ -5,18 +5,19 @@ x-common-config: &common-config
     - .env
 
 services:
-  frontend:
+  web_app_olap:
     <<: *common-config
+    container_name: web_app_olap
     build:
-      context: ./frontend
+      context: ./web_app_olap
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     depends_on:
-      backend:
+      django_backend:
           condition: service_started
     volumes:
-      - ./frontend/src:/app/src
+      - ./web_app_olap/src:/app/src
       - /app/node_modules
       - /app/.next
     restart: unless-stopped
@@ -26,9 +27,25 @@ services:
       timeout: 10s
       retries: 3
 
+  company_website:
+    <<: *common-config
+    container_name: olap_company_website
+    build:
+      context: ./company_website
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   # Service name - referenced in other services as hostname "db"
   db:
     <<: *common-config
+    container_name: olap_db
     image: postgres:15-alpine  # Official PostgreSQL image using Alpine Linux
     restart: always  # Automatic restart policy
     healthcheck: # to ensure the database is ready before starting the application
@@ -62,8 +79,9 @@ services:
       retries: 5
 
   # Django
-  backend:
+  django_backend:
     <<: *common-config
+    container_name: olap_backend_api
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -87,18 +105,17 @@ services:
       timeout: 10s
       retries: 3
 
-  celery_worker:
+  celery:
     <<: *common-config
+    container_name: olap_backend_celery
     image: backend  # Reusing the same image as backend
     command: celery -A config.celery worker -l info
     volumes:
       - ./backend:/app
     depends_on:
-      db:
-        condition: service_healthy
       redis:
         condition: service_healthy
-      backend:
+      django_backend:
         condition: service_started
     healthcheck: # ensure services are properly running
       test: ["CMD", "celery", "-A", "config.celery", "inspect", "ping"]

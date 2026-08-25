@@ -1,0 +1,10 @@
+{
+  "/api/chat/route": "/api/chat",
+  "/api/health/route": "/api/health",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/careers/page": "/careers",
+  "/page": "/",
+  "/products/page": "/products",
+  "/contact/page": "/contact"
+}

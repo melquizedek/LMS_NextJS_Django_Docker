@@ -1,0 +1,6 @@
+{
+  "name": "ZedLendingCorp",
+  "description": "Licensed financing corporation providing accessible pension loans, salary loans, business financing, careers, and corporate information.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
