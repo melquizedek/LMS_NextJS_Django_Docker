@@ -45,7 +45,6 @@ services:
           condition: service_healthy
     volumes:
       - ./olap_web_app/src:/app/src
-      - ./olap_web_app/app:/app/app
       - /app/.next
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
