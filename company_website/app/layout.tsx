@@ -3,11 +3,11 @@ import './globals.css';
 import { ClientLayout } from '@/components/ClientLayout';
 
 export const metadata: Metadata = {
-  title: 'ZedLendingCorp - Online Loan Application Processing (OLAP) Platform',
+  title: 'ZedLendingCorp - Website',
   description:
     'Where Your Financial Dreams Become Reality. Transparent personal and business loans with instant OLAP pre-approval, low fixed APRs, and 24-hour ACH disbursement.',
   openGraph: {
-    title: 'ZedLendingCorp - OLAP Lending Platform',
+    title: 'ZedLendingCorp - Website',
     description:
       'Instant loan calculations, paperless 2-minute application, and trusted commercial & personal credit facilities.',
     type: 'website',

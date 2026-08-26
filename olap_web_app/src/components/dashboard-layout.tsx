@@ -19,7 +19,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <Landmark className="h-6 w-6 text-primary-foreground" />
             </div>
             <div className="duration-200 group-data-[collapsible=icon]:opacity-0">
-                <h1 className="font-headline text-xl font-semibold">LendFlow</h1>
+                <h1 className="font-headline text-xl font-semibold">ZedLendingCorp</h1>
             </div>
           </div>
         </SidebarHeader>
@@ -50,7 +50,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             {children}
         </main>
         <footer className="border-t p-4 text-center text-sm text-muted-foreground md:px-6">
-          © {new Date().getFullYear()} LendFlow. All rights reserved.
+          © {new Date().getFullYear()} ZedLendingCorp. All rights reserved.
         </footer>
       </SidebarInset>
     </SidebarProvider>

@@ -7,7 +7,7 @@ export default async function PublicLayout({ children }: { children: React.React
                 {children}
             </main>
             <footer className="border-t p-4 text-center text-sm text-muted-foreground md:px-6">
-                © {new Date().getFullYear()} LendFlow. All rights reserved.
+                © {new Date().getFullYear()} ZedLendingCorp. All rights reserved.
             </footer>
         </>
     )

@@ -143,7 +143,7 @@ export default function LoanCalculatorPage() {
             <div className="max-w-3xl space-y-4">
                 <div className="flex items-center gap-2 text-primary">
                     <Landmark className="h-4 w-4" aria-hidden="true" />
-                    <p className="text-xs font-bold uppercase tracking-[0.2em]">LendFlow Personal Loans</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em]">ZedLendingCorp Personal Loans</p>
                 </div>
                 <h1 className="font-headline text-4xl font-bold leading-tight text-foreground md:text-5xl">
                     Personal Loan{' '}

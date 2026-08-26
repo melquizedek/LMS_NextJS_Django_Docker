@@ -69,8 +69,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+        <div className="flex items-center justify-between h-20 min-w-0">
           
           {/* Logo - ZedLendingCorp */}
           <div 
@@ -94,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Center Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+          <nav className="hidden lg:flex items-center shrink">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
@@ -102,74 +102,91 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={item.id}
                   id={`nav-link-${item.id}`}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative px-3.5 py-2 text-sm font-medium transition-colors ${
+                  className={`relative px-2 lg:px-3 xl:px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors group hover:text-[#0c7368] hover:font-semibold ${
                     isActive
                       ? 'text-[#0c7368] font-semibold'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-600'
                   }`}
                 >
                   {item.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2.5px] bg-[#0c7368] rounded-full" />
-                  )}
+                  <span className={`absolute bottom-0 left-2 lg:left-3 xl:left-4 right-2 lg:right-3 xl:right-4 h-[2.5px] bg-[#0c7368] rounded-full transition-opacity ${
+                    isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                  }`} />
                 </button>
               );
             })}
           </nav>
 
           {/* Right Action Controls */}
-          <div className="hidden sm:flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2 lg:gap-3 xl:gap-4 shrink-0">
             {/* Search Icon Button */}
-            <button
-              id="nav-search-button"
-              onClick={onOpenSearch}
-              className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
-              aria-label="Search site"
-              title="Search loans and information"
-            >
-              <Search className="w-4 h-4" />
-            </button>
+            <div className="hidden lg:block">
+              <button
+                id="nav-search-button"
+                onClick={onOpenSearch}
+                className="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
+                aria-label="Search site"
+                title="Search loans and information">
+                <Search className="w-4 h-4" />
+              </button>
+            </div>
 
             {/* Requesting a Call Box */}
             <button
               id="nav-call-button"
               onClick={onOpenCallback}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-full hover:bg-slate-50 transition-colors text-left group"
+              className="flex items-center gap-2 lg:gap-2.5 px-2.5 lg:px-3 py-1.5 rounded-full hover:bg-slate-50 transition-colors text-left group"
             >
-              <div className="w-10 h-10 rounded-full bg-[#0c7368] text-white flex items-center justify-center shrink-0 shadow-sm group-hover:bg-[#095349] transition-colors">
+              <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-[#0c7368] text-white flex items-center justify-center shrink-0 shadow-sm group-hover:bg-[#095349] transition-colors">
                 <PhoneCall className="w-4 h-4" />
               </div>
-              <div className="hidden xl:block">
-                <div className="text-[11px] text-slate-500 font-medium leading-none">
+              <div>
+                <div className="hidden md:block text-[11px] text-slate-500 font-medium leading-none">
                   Customer Care Hotline:
                 </div>
-                <div className="text-xs font-bold text-slate-900 leading-tight">
+                <div className="hidden md:block text-xs font-bold text-slate-900 leading-tight">
                   {COMPANY_INFO.phone}
                 </div>
               </div>
             </button>
 
-            {/* AI Advisor Button */}
-            {onOpenAiAdvisor && (
-              <button
-                id="nav-ai-advisor-button"
-                onClick={onOpenAiAdvisor}
-                className="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 shadow-2xs transition-all"
-              >
-                <Bot className="w-4 h-4 text-teal-600 animate-pulse" />
-                <span>AI Loan Advisor</span>
-              </button>
-            )}
+            {/* Inquire / Apply Button - Icon only for lg, full for xl */}
+            {/*<>*/}
+            {/*  <button*/}
+            {/*    id="nav-apply-now-button-icon"*/}
+            {/*    onClick={onOpenCallback}*/}
+            {/*    className="hidden sm:flex xl:hidden w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-r from-[#0c7368] to-[#085a51] hover:brightness-110 text-white flex items-center justify-center shadow-sm transition-all"*/}
+            {/*    title="Inquire Now"*/}
+            {/*  >*/}
+            {/*    <Sparkles className="w-4 h-4" />*/}
+            {/*  </button>*/}
+            {/*  <button*/}
+            {/*    id="nav-apply-now-button-full"*/}
+            {/*    onClick={onOpenCallback}*/}
+            {/*    className="hidden xl:flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#0c7368] to-[#085a51] hover:brightness-110 shadow-sm transition-all"*/}
+            {/*  >*/}
+            {/*    <Sparkles className="w-3.5 h-3.5" />*/}
+            {/*    <span>Inquire Now</span>*/}
+            {/*  </button>*/}
+            {/*  /!* AI Advisor Button *!/*/}
+            {/*  <button*/}
+            {/*      id="nav-ai-advisor-button-icon"*/}
+            {/*      onClick={onOpenAiAdvisor}*/}
+            {/*      className="hidden sm:flex xl:hidden w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-r from-[#0c7368] to-[#085a51] hover:brightness-110 text-white flex items-center justify-center shadow-sm transition-all"*/}
+            {/*      title="AI Loan Advisor">*/}
+            {/*    <Bot className="w-4 h-4" />*/}
+            {/*  </button>*/}
+            {/*  {onOpenAiAdvisor && (*/}
+            {/*      <button*/}
+            {/*          id="nav-ai-advisor-button"*/}
+            {/*          onClick={onOpenAiAdvisor}*/}
+            {/*          className="hidden xl:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 shadow-2xs transition-all">*/}
+            {/*        <Bot className="w-4 h-4 text-teal-600 animate-pulse" />*/}
+            {/*        <span>AI Loan Advisor</span>*/}
+            {/*      </button>*/}
+            {/*  )}*/}
+            {/*</>*/}
 
-            {/* Inquire / Apply Button */}
-            <button
-              id="nav-apply-now-button"
-              onClick={onOpenCallback}
-              className="hidden md:flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#0c7368] to-[#085a51] hover:brightness-110 shadow-sm transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Inquire Now</span>
-            </button>
           </div>
 
           {/* Mobile Hamburger Toggle */}
@@ -178,8 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="mobile-search-toggle"
               onClick={onOpenSearch}
               className="p-2 rounded-lg text-slate-600 hover:bg-slate-100"
-              aria-label="Search"
-            >
+              aria-label="Search">
               <Search className="w-5 h-5" />
             </button>
             <button

@@ -102,7 +102,7 @@ export default function Homepage() {
                         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                             <Landmark className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
                         </div>
-                        <span className="font-headline text-xl font-bold">LendFlow</span>
+                        <span className="font-headline text-xl font-bold">ZedLendingCorp</span>
                     </Link>
                     <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex" aria-label="Primary">
                         <Link href="/calculator" className="transition-colors hover:text-foreground">
@@ -133,7 +133,7 @@ export default function Homepage() {
                             <div className="space-y-4">
                                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5">
                                     <Landmark className="h-4 w-4 text-primary" aria-hidden="true" />
-                                    <p className="text-xs font-bold uppercase tracking-wider text-primary">LendFlow Personal Loans</p>
+                                    <p className="text-xs font-bold uppercase tracking-wider text-primary">ZedLendingCorp Personal Loans</p>
                                 </div>
                                 <h1 className="font-headline text-5xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl">
                                     Loans as simple as{' '}
@@ -264,7 +264,7 @@ export default function Homepage() {
                 <section className="py-24 md:py-32">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6">
                         <div className="mx-auto max-w-2xl space-y-4 text-center">
-                            <p className="text-sm font-bold uppercase tracking-widest text-primary">Why LendFlow</p>
+                            <p className="text-sm font-bold uppercase tracking-widest text-primary">Why ZedLendingCorp</p>
                             <h2 className="font-headline text-4xl font-bold md:text-5xl">Built for the way you budget</h2>
                             <p className="text-lg text-muted-foreground">
                                 No confusing fine print. Just a clear loan you can plan around.
@@ -349,14 +349,14 @@ export default function Homepage() {
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
                             <Landmark className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
                         </div>
-                        <span className="font-headline text-xl font-bold">LendFlow</span>
+                        <span className="font-headline text-xl font-bold">ZedLendingCorp</span>
                     </div>
                     <nav className="flex items-center gap-8 text-sm font-medium text-muted-foreground" aria-label="Footer">
                         <Link href="/calculator" className="transition-colors hover:text-foreground">Calculator</Link>
                         <button onClick={() => scrollTo('how-it-works')} className="transition-colors hover:text-foreground">How it works</button>
                         <button onClick={() => scrollTo('faq')} className="transition-colors hover:text-foreground">FAQ</button>
                     </nav>
-                    <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} LendFlow</p>
+                    <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} ZedLendingCorp</p>
                 </div>
             </footer>
         </div>

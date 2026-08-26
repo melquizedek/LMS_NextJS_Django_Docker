@@ -160,7 +160,7 @@ export default function SignupPage() {
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <CardHeader>
                             <CardTitle className="text-3xl font-bold font-headline">Create an Account</CardTitle>
-                            <CardDescription>Enter your details below to get started with LendFlow.</CardDescription>
+                            <CardDescription>Enter your details below to get started with ZedLendingCorp.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
