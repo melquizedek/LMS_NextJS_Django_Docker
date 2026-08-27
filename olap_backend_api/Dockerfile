@@ -1,11 +1,4 @@
-FROM python:3.13-slim AS deps
-
-WORKDIR /app
-
-COPY ./requirements/base.txt /app/
-RUN pip install --upgrade pip && pip install --no-cache-dir -r base.txt
-
-FROM python:3.13-slim AS runner
+FROM python:3.13-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -15,17 +8,16 @@ WORKDIR /app
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         postgresql-client \
+        build-essential \
         curl \
+        supervisor \
         && rm -rf /var/lib/apt/lists/*
 
-COPY --from=deps /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
-COPY --from=deps /usr/local/bin /usr/local/bin
+COPY ./requirements/base.txt /app/
+RUN pip install --upgrade pip && pip install --no-cache-dir -r base.txt
 
 COPY . .
 
-RUN groupadd -r django && useradd -r -g django django \
-    && chown -R django:django /app
-
-USER django
-
 EXPOSE 8000
+
+CMD ["supervisord", "-c", "/app/supervisord.conf"]
