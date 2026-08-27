@@ -1,0 +1,165 @@
+# Standalone production compose file for the LMS stack.
+# Deploy on the server with:
+#   docker compose -f docker-compose.prod.yml up --build -d
+#
+# This file is self-contained (does NOT merge with docker-compose.yml), so
+# development-only source mounts and runtime overrides never leak into the
+# production services. All three app tiers build from their Dockerfile.prod.
+#
+# .env is loaded for secrets and config (see .env.example).
+# Store Postgres + Redis data in named volumes on the VM.
+services:
+  company_website:
+    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/company_website:v1.0
+    container_name: company_website
+    build:
+      context: ./company_website
+      dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_API_HOST: ${NEXT_PUBLIC_API_HOST:-http://localhost:3001}
+    env_file:
+      - .env
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+    restart: unless-stopped
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  olap_web_app:
+    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/olap_web_app:v1.0
+    container_name: olap_web_app
+    build:
+      context: ./olap_web_app
+      dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_API_HOST: ${NEXT_PUBLIC_API_HOST:-http://localhost:3000}
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - app_network
+    depends_on:
+      olap_backend_api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  olap_db:
+    image: postgres:15-alpine
+    container_name: olap_db
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - app_network
+    shm_size: 256mb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Explicit init env so the DB container doesn't rely on app env names.
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lms_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  olap_redis:
+    image: redis:7-alpine
+    container_name: olap_redis
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - app_network
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  olap_backend_api:
+    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/olap_backend_api:v1.0
+    container_name: olap_backend_api
+    build:
+      context: ./olap_backend_api
+      dockerfile: Dockerfile.prod
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - app_network
+    depends_on:
+      olap_db:
+        condition: service_healthy
+      olap_redis:
+        condition: service_healthy
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+    volumes:
+      - static_volume:/app/staticfiles
+      - backend_media:/app/media
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/login/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  backend_media:
+
+networks:
+  app_network:
+    driver: bridge

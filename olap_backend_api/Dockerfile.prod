@@ -16,6 +16,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         postgresql-client \
         curl \
+        supervisor \
         && rm -rf /var/lib/apt/lists/*
 
 COPY --from=deps /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
@@ -29,3 +30,7 @@ RUN groupadd -r django && useradd -r -g django django \
 USER django
 
 EXPOSE 8000
+
+ENV DJANGO_SETTINGS_MODULE=config.settings.production
+
+CMD ["supervisord", "-c", "/app/supervisord.prod.conf"]
