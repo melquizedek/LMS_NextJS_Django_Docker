@@ -10,7 +10,7 @@
 # Store Postgres + Redis data in named volumes on the VM.
 services:
   company_website:
-    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/company_website:v1.0
+    image: company_website:v1.0
     container_name: company_website
     build:
       context: ./company_website
@@ -39,7 +39,7 @@ services:
         max-file: "3"
 
   olap_web_app:
-    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/olap_web_app:v1.0
+    image: olap_web_app:v1.0
     container_name: olap_web_app
     build:
       context: ./olap_web_app
@@ -95,6 +95,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    profiles:
+      - backend
 
   olap_redis:
     image: redis:7-alpine
@@ -118,9 +120,11 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    profiles:
+      - backend
 
   olap_backend_api:
-    image: asia-southeast1-docker.pkg.dev/lms-nextjs-django-docker/lms-docker-repo/olap_backend_api:v1.0
+    image: olap_backend_api:v1.0
     container_name: olap_backend_api
     build:
       context: ./olap_backend_api
@@ -153,6 +157,8 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    profiles:
+      - backend
 
 volumes:
   postgres_data:
