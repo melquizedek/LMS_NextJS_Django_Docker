@@ -27,6 +27,8 @@ COPY . .
 RUN groupadd -r django && useradd -r -g django django \
     && chown -R django:django /app
 
+RUN python manage.py collectstatic --noinput
+
 USER django
 
 EXPOSE 8000
