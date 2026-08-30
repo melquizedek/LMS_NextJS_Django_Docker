@@ -95,8 +95,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    profiles:
-      - backend
 
   olap_redis:
     image: redis:7-alpine
@@ -120,8 +118,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    profiles:
-      - backend
 
   olap_backend_api:
     image: olap_backend_api:v1.0
@@ -157,8 +153,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-    profiles:
-      - backend
 
 volumes:
   postgres_data:
