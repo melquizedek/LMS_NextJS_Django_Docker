@@ -21,6 +21,16 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-dev-key-change-me')
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
+# Trust the X-Forwarded-Proto set by the nginx reverse proxy (TLS termination)
+# so Django sees requests as https behind the proxy.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CSRF origins for the HTTPS domains terminating at nginx (required for the
+# Django admin login over https).
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if origin
+]
+
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = os.getenv(
     'DJANGO_CORS_ALLOWED_ORIGINS',

@@ -30,8 +30,20 @@ RUN groupadd -r django && useradd -r -g django django \
 
 RUN python manage.py collectstatic --noinput
 
+# Shared volumes /app/staticfiles and /app/media are initialized with the
+# ownership of the image mountpoint on first use, so make them django-writable
+# (the build-time collectstatic above ran as root).
+RUN chown -R django:django /app/staticfiles \
+    && mkdir -p /app/media \
+    && chown -R django:django /app/media
+
+COPY entrypoint.prod.sh /app/entrypoint.prod.sh
+RUN chmod +x /app/entrypoint.prod.sh
+
 USER django
 
 EXPOSE 8000
+
+ENTRYPOINT ["/app/entrypoint.prod.sh"]
 
 CMD ["supervisord", "-c", "/app/supervisord.prod.conf"]

@@ -1,6 +1,6 @@
 export const APP_NAME = 'ZedLendingCorp';
 export const APP_TAGLINE = 'Online Loan Application Processing (OLAP) Platform';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.zedlendingcorp.com/v1';
+export const API_URL = process.env.NEXT_PUBLIC_API_HOST || "";
 
 export const ROUTES = {
   HOME: '/',

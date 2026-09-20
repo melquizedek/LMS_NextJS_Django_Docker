@@ -1,12 +1,17 @@
 # Standalone production compose file for the LMS stack.
 # Deploy on the server with:
-#   docker compose -f docker-compose.prod.yml up --build -d
+#   docker compose --env-file .env.prod -f docker-compose.prod.yml up --build -d
 #
 # This file is self-contained (does NOT merge with docker-compose.yml), so
 # development-only source mounts and runtime overrides never leak into the
 # production services. All three app tiers build from their Dockerfile.prod.
 #
-# .env is loaded for secrets and config (see .env.example).
+# --env-file .env.prod supplies the ${...} interpolations (build args, redis
+# requirepass, postgres init). The env_file secrets reach the containers
+# verbatim, so .env.prod must NOT contain ${...} inside a value.
+#
+# nginx terminates TLS (Let's Encrypt certs in ./letsencrypt) and is the only
+# service exposed to the host (80/443). App services are internal-only.
 # Store Postgres + Redis data in named volumes on the VM.
 x-common-config: &common-config
   restart: unless-stopped
@@ -26,11 +31,9 @@ services:
       context: ./company_website
       dockerfile: Dockerfile.prod
       args:
-        NEXT_PUBLIC_API_HOST: ${NEXT_PUBLIC_API_HOST:-http://localhost:3001}
+        DJANGO_API_HOST: ${DJANGO_API_HOST:-https://api.zedpaala.site}
     env_file:
-      - .env
-    ports:
-      - "3001:3001"
+      - .env.prod
     environment:
       PORT: 3001
       HOSTNAME: "0.0.0.0"
@@ -49,11 +52,9 @@ services:
       context: ./olap_web_app
       dockerfile: Dockerfile.prod
       args:
-        NEXT_PUBLIC_API_HOST: ${NEXT_PUBLIC_API_HOST:-http://localhost:3000}
+        DJANGO_API_HOST: ${DJANGO_API_HOST:-https://api.zedpaala.site}
     env_file:
-      - .env
-    ports:
-      - "3000:3000"
+      - .env.prod
     environment:
       PORT: 3000
       HOSTNAME: "0.0.0.0"
@@ -72,7 +73,7 @@ services:
     image: postgres:15-alpine
     container_name: olap_db
     env_file:
-      - .env
+      - .env.prod
     shm_size: 256mb
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -93,7 +94,7 @@ services:
     image: redis:7-alpine
     container_name: olap_redis
     env_file:
-      - .env
+      - .env.prod
     command: redis-server --requirepass ${REDIS_PASSWORD:-defaultpassword}
     volumes:
       - redis_data:/data
@@ -112,9 +113,7 @@ services:
       context: ./olap_backend_api
       dockerfile: Dockerfile.prod
     env_file:
-      - .env
-    ports:
-      - "8000:8000"
+      - .env.prod
     depends_on:
       olap_db:
         condition: service_healthy
@@ -131,6 +130,26 @@ services:
       timeout: 10s
       retries: 3
       start_period: 20s
+
+  nginx:
+    <<: *common-config
+    image: nginx:1.27-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      company_website:
+        condition: service_healthy
+      olap_web_app:
+        condition: service_healthy
+      olap_backend_api:
+        condition: service_healthy
 
 volumes:
   postgres_data:

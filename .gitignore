@@ -6,6 +6,11 @@
 !.env.example        # Allow the template file to be committed
 
 # ============================================================
+# REVERSE PROXY / TLS
+# ============================================================
+letsencrypt/         # Let's Encrypt certs obtained on the VM
+
+# ============================================================
 # DOCKER
 # ============================================================
 # Override files with sensitive configs
