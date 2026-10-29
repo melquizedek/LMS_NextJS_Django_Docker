@@ -1,4 +1,4 @@
-# Global ignore rules for when building from root context
+# OS & IDE Files
 **/.DS_Store
 **/.git
 **/.gitignore
@@ -6,31 +6,70 @@
 **/.vscode
 **/*.dbmdl
 **/*.jfm
-**/*.jfm
-**/bin
-**/obj
+**/Thumbs.db
 
-# Specific service paths to ignore if built from root
-backend/__pycache__
-backend/.venv
-backend/media
-backend/static
-backend/staticfiles
-backend/db.sqlite3
+# Environment Files & Secrets
+.env
+.env.example
+.env.prod
+*.env
 
-frontend/node_modules
-frontend/.next
-frontend/out
-frontend/build
-frontend/dist
+# Documentation & Knowledge Graph
+docs/
+graphify-out/
+AGENTS.md
+CLAUDE.md
+PROMPT.md
+README*.md
+metadata.json
 
-# Docker related
+# AI / Agent Skills Configuration
+.agents/
+.claude/
+skills-lock.json
+
+# Backend (olap_backend_api)
+olap_backend_api/__pycache__/
+olap_backend_api/*/__pycache__/
+olap_backend_api/*/*/__pycache__/
+olap_backend_api/*/*/*/__pycache__/
+olap_backend_api/.venv/
+olap_backend_api/venv/
+olap_backend_api/media/
+olap_backend_api/static/
+olap_backend_api/staticfiles/
+olap_backend_api/db.sqlite3
+olap_backend_api/*.pid
+olap_backend_api/*.log
+
+# Web App (olap_web_app)
+olap_web_app/node_modules/
+olap_web_app/.next/
+olap_web_app/out/
+olap_web_app/build/
+olap_web_app/dist/
+olap_web_app/.vercel/
+
+# Company Website (company_website)
+company_website/node_modules/
+company_website/.next/
+company_website/out/
+company_website/build/
+company_website/dist/
+company_website/.vercel/
+
+# Root Node & Python artifacts
+node_modules/
+__pycache__/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker & Deployment Files
 Dockerfile*
 docker-compose*
 compose.y*ml
 .dockerignore
-
-# Root level
-README.md
-LICENSE
-node_modules
+letsencrypt/
+nginx/
