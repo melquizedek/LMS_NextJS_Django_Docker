@@ -37,9 +37,6 @@ $RECYCLE.BIN/
 # Linux
 *~
 
-# docs
-docs
-
 # VSCode
 .vscode/
 !.vscode/extensions.json   # Allow sharing recommended extensions
