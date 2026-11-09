@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
-import random
+import secrets
 import string
 from datetime import timedelta
 
@@ -70,7 +70,8 @@ class EmailVerification(models.Model):
         super().save(*args, **kwargs)
 
     def generate_token(self):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=64))
+        alphabet = string.ascii_letters + string.digits
+        return ''.join(secrets.choice(alphabet) for _ in range(64))
 
     def is_expired(self):
         return timezone.now() > self.expires_at
@@ -94,7 +95,7 @@ class PhoneVerification(models.Model):
         super().save(*args, **kwargs)
 
     def generate_code(self):
-        return ''.join(random.choices(string.digits, k=6))
+        return ''.join(secrets.choice(string.digits) for _ in range(6))
 
     def is_expired(self):
         return timezone.now() > self.expires_at

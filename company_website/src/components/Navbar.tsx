@@ -73,10 +73,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-20 min-w-0">
           
           {/* Logo - ZedLendingCorp */}
-          <div 
+          <button
             id="nav-brand-logo"
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-3 cursor-pointer group select-none"
+            className="flex items-center gap-3 cursor-pointer group select-none focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-lg"
           >
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#0c7368] to-[#04433c] text-white flex items-center justify-center shadow-md shadow-teal-900/10 group-hover:scale-105 transition-transform">
               <ShieldCheck className="w-6 h-6 text-teal-200" />

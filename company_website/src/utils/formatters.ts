@@ -2,7 +2,7 @@
  * Formats a number to Philippine Peso currency (₱1,234.56 or ₱1,234)
  */
 export function formatCurrency(amount: number, showCents: boolean = false): string {
-  if (isNaN(amount)) return '₱0';
+  if (Number.isNaN(amount)) return '₱0';
   return `₱${new Intl.NumberFormat('en-PH', {
     minimumFractionDigits: showCents ? 2 : 0,
     maximumFractionDigits: showCents ? 2 : 0,
@@ -13,7 +13,7 @@ export function formatCurrency(amount: number, showCents: boolean = false): stri
  * Formats a number with comma separators (e.g. 50,000)
  */
 export function formatNumber(val: number): string {
-  if (isNaN(val)) return '0';
+  if (Number.isNaN(val)) return '0';
   return new Intl.NumberFormat('en-US').format(val);
 }
 
@@ -21,7 +21,7 @@ export function formatNumber(val: number): string {
  * Formats percentage e.g. 5.99%
  */
 export function formatPercent(rate: number, decimals: number = 2): string {
-  if (isNaN(rate)) return '0%';
+  if (Number.isNaN(rate)) return '0%';
   return `${rate.toFixed(decimals)}%`;
 }
 

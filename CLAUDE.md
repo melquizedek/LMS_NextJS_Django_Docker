@@ -1,3 +1,6 @@
+## AI Development Rules
+@AI_DEVELOPMENT_RULES.md
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.

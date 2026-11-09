@@ -156,10 +156,11 @@ export const ContactSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+                    <label htmlFor="fullName" className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
                     <input
                       type="text"
                       required
+                      id="fullName"
                       placeholder="e.g. Alex Rivera"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -167,10 +168,11 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number *</label>
+                    <label htmlFor="phone" className="block text-xs font-bold text-slate-700 mb-1">Phone Number *</label>
                     <input
                       type="tel"
                       required
+                      id="phone"
                       placeholder="(629) 555-0129"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -181,9 +183,10 @@ export const ContactSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                    <label htmlFor="email" className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
                     <input
                       type="email"
+                      id="email"
                       placeholder="alex@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -191,9 +194,10 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Approx. Loan Needed ($)</label>
+                    <label htmlFor="loanAmount" className="block text-xs font-bold text-slate-700 mb-1">Approx. Loan Needed ($)</label>
                     <input
                       type="number"
+                      id="loanAmount"
                       step={1000}
                       value={formData.loanAmountRequested}
                       onChange={(e) => setFormData({ ...formData, loanAmountRequested: Number(e.target.value) })}
@@ -202,8 +206,8 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Best Time to Call You</label>
+                <fieldset className="border-0">
+                  <legend className="block text-xs font-bold text-slate-700 mb-1">Best Time to Call You</legend>
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     {[
                       { id: 'morning', label: 'Morning (8am-12pm)' },
@@ -224,12 +228,13 @@ export const ContactSection: React.FC = () => {
                       </button>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Loan Requirements / Notes</label>
+                  <label htmlFor="notes" className="block text-xs font-bold text-slate-700 mb-1">Loan Requirements / Notes</label>
                   <textarea
                     rows={3}
+                    id="notes"
                     placeholder="Tell us about your financing timeline, credit history, or specific questions..."
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}

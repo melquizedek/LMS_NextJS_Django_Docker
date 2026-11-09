@@ -10,8 +10,8 @@ A full-stack **Loan Management System** for a licensed financing corporation pro
 - **Admin Dashboard** — Django admin panel for loan products, user management, and system oversight
 - **Corporate Website** — Marketing portal with AI-powered chat assistant (Genkit), product catalog, careers, and contact forms
 
-### Tech Stack
-
+### Tech Stack                                                       
+                                                                                                                                 
 #### Frontend
 | Technology | Purpose |
 | :--- | :--- |
@@ -20,7 +20,7 @@ A full-stack **Loan Management System** for a licensed financing corporation pro
 | **Tailwind CSS** | Utility-first styling |
 | **Radix UI / shadcn/ui** | Accessible component primitives |
 | **React Hook Form + Zod** | Form handling & validation |
-| **Genkit AI** | AI integration with Google Gemini |
+| **Genkit AI** | AI integration with Google Gemini |                                                                                       
 | **Lucide React** | Icon library |
 | **Recharts** | Data visualization |
 

@@ -181,8 +181,13 @@ How can I help power your financial goals today? Feel free to ask any question o
     }
   };
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
+  // Wrapper to satisfy SonarQube promise handling
+  const sendQuickMessage = (prompt: string) => {
+    void handleSendMessage(prompt);
+  };
+
+  const handleCopy = async (id: string, text: string) => {
+    await navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -201,7 +206,7 @@ How can I help power your financial goals today? Feel free to ask any question o
   const handleSimulateSubmit = () => {
     const prompt = `Can you analyze a loan of ${formatCurrency(simAmount)} over a tenure of ${simMonths} months? Provide estimated monthly amortization, interest rate comparison, and tips to get approved.`;
     setShowSim(false);
-    handleSendMessage(prompt);
+    sendQuickMessage(prompt);
   };
 
   return (
@@ -449,7 +454,7 @@ How can I help power your financial goals today? Feel free to ask any question o
             {QUICK_STARTERS.map((q, idx) => (
               <button
                 key={idx}
-                onClick={() => handleSendMessage(q.prompt)}
+                onClick={() => sendQuickMessage(q.prompt)}
                 disabled={isLoading}
                 className="flex-shrink-0 flex items-center gap-1 text-[11px] font-medium bg-white hover:bg-teal-50 text-slate-700 hover:text-teal-800 border border-slate-200 hover:border-teal-300 px-2.5 py-1 rounded-full shadow-2xs transition-all"
               >
@@ -464,7 +469,7 @@ How can I help power your financial goals today? Feel free to ask any question o
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSendMessage();
+                void handleSendMessage();
               }}
               className="flex items-center gap-2"
             >

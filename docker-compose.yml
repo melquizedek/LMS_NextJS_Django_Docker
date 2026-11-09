@@ -108,11 +108,35 @@ services:
       retries: 3
       start_period: 20s
 
+  sonarqube:
+    <<: *common-config
+    container_name: sonarqube
+    profiles:
+      - sonarqube
+    image: sonarqube:community
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://olap_db:5432/sonarqube
+      - SONAR_JDBC_USERNAME=${SONAR_JDBC_USERNAME:-postgres}
+      - SONAR_JDBC_PASSWORD=${SONAR_JDBC_PASSWORD:-postgres}
+      - SONAR_SEARCH_JAVAADDITIONALOPTS=-Dnode.store.allow_mmap=false
+    depends_on:
+      olap_db:
+        condition: service_healthy
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
 volumes:
   postgres_data:
   redis_data:
   static_volume:
   backend_media:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
 
 networks:
   app_network:

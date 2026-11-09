@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import {
     Form,
@@ -21,53 +20,13 @@ import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { countries } from '@/lib/countries';
-
-const signupSchema = z
-    .object({
-        firstName: z.string().min(1, { message: 'First name is required.' }),
-        middleName: z.string().min(1, { message: 'Middle name is required.' }),
-        lastName: z.string().min(1, { message: 'Last name is required.' }),
-        email: z.string().email({ message: 'Please enter a valid email address.' }),
-        countryCode: z.string({ required_error: 'Please select a country.' }),
-        mobileNumber: z.string().min(1, { message: 'Mobile number is required.' }).max(15, { message: 'Mobile number cannot be more than 15 digits.' }).regex(/^\d+$/, { message: 'Mobile number must contain only digits.'}),
-        birthMonth: z.string({ required_error: 'Please select a month.' }),
-        birthDay: z.string({ required_error: 'Please select a day.' }),
-        birthYear: z.string({ required_error: 'Please select a year.' }),
-        password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
-        confirmPassword: z.string(),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match.",
-        path: ['confirmPassword'],
-    }).refine(
-        (data) => {
-            const { birthYear, birthMonth, birthDay } = data;
-            if (!birthYear || !birthMonth || !birthDay) {
-                return false;
-            }
-            const year = parseInt(birthYear, 10);
-            const month = parseInt(birthMonth, 10);
-            const day = parseInt(birthDay, 10);
-            const date = new Date(year, month - 1, day);
-            return (
-                date.getFullYear() === year &&
-                date.getMonth() === month - 1 &&
-                date.getDate() === day &&
-                date < new Date() &&
-                date > new Date('1900-01-01')
-            );
-        },
-        {
-            message: 'Please enter a valid date of birth.',
-            path: ['birthDay'],
-        }
-    );
-
-type SignupFormValues = z.infer<typeof signupSchema>;
-
-const months = Array.from({ length: 12 }, (_, i) => ({ value: String(i + 1), label: new Date(0, i).toLocaleString('default', { month: 'long' }) }));
-const years = Array.from({ length: 120 }, (_, i) => String(new Date().getFullYear() - i));
-const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
+import {
+    signupSchema,
+    months,
+    years,
+    days,
+    type SignupFormValues,
+} from '@/lib/signup-validation';
 
 export default function SignupPage() {
     const { toast } = useToast();

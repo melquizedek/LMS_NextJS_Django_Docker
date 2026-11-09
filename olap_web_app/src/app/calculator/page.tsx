@@ -10,109 +10,40 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Calculator, X, Landmark, Wallet, CalendarRange, ArrowDown } from 'lucide-react';
+import {
+  calculateLoan,
+  formatCurrency,
+  clampLoanAmount,
+  parseLoanAmount,
+  LOAN_CONSTANTS,
+  type LoanCalculationResult,
+  type AmortizationRow,
+} from '@/lib/loan-calculator';
 
-interface AmortizationRow {
-    month: number;
-    beginningBalance: number;
-    monthlyPayment: number;
-    principal: number;
-    interest: number;
-    endingBalance: number;
-}
-
-const MIN_LOAN_AMOUNT = 30000;
-const MAX_LOAN_AMOUNT = 2000000;
-
-const TERM_OPTIONS = [12, 18, 24, 36];
-const INTEREST_RATE_OPTIONS = [2, 3.5, 5];
-
-const HOW_IT_WORKS = [
-    {
-        icon: Wallet,
-        title: 'Enter your amount',
-        description: 'Set how much you’d like to borrow, from ₱30,000 up to ₱2,000,000.',
-    },
-    {
-        icon: CalendarRange,
-        title: 'Choose your term and rate',
-        description: 'Pick a repayment term — 12, 18, 24, or 36 months — and a monthly interest rate of 2%, 3.5%, or 5%.',
-    },
-    {
-        icon: Calculator,
-        title: 'See your estimate',
-        description: 'Get your monthly payment, total interest, and a month-by-month amortization schedule instantly.',
-    },
-] as const;
-
-const formatCurrency = (value: number) => {
-    return `₱ ${new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    }).format(value)}`;
-};
+const { TERM_OPTIONS, INTEREST_RATE_OPTIONS } = LOAN_CONSTANTS;
 
 export default function LoanCalculatorPage() {
     const [loanAmountText, setLoanAmountText] = useState('');
     const [interestRate, setInterestRate] = useState(2);
     const [loanTerm, setLoanTerm] = useState(12);
 
-    const loanAmount = parseFloat(loanAmountText.replace(/[^0-9.]/g, '')) || 0;
+    const loanAmount = parseLoanAmount(loanAmountText);
 
-    const [results, setResults] = useState<{
-        monthlyPayment: number;
-        totalPayment: number;
-        totalInterest: number;
-        amortizationSchedule: AmortizationRow[];
-    } | null>(null);
+    const [results, setResults] = useState<LoanCalculationResult | null>(null);
 
     const handleLoanAmountBlur = () => {
-        if (isNaN(loanAmount) || loanAmount === 0) {
+        if (Number.isNaN(loanAmount) || loanAmount === 0) {
             setLoanAmountText('');
             return;
         }
-        const clamped = Math.min(MAX_LOAN_AMOUNT, Math.max(MIN_LOAN_AMOUNT, loanAmount));
+        const clamped = clampLoanAmount(loanAmount);
         setLoanAmountText(formatCurrency(clamped));
     };
 
-    const calculateLoan = () => {
-        const principal = loanAmount;
-        const monthlyInterestRate = interestRate / 100;
-        const numberOfPayments = loanTerm;
-
-        if (principal >= MIN_LOAN_AMOUNT && principal <= MAX_LOAN_AMOUNT && monthlyInterestRate > 0 && numberOfPayments > 0) {
-            const monthlyPayment =
-                (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
-                (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
-
-            const totalPayment = monthlyPayment * numberOfPayments;
-            const totalInterest = totalPayment - principal;
-
-            let schedule: AmortizationRow[] = [];
-            let beginningBalance = principal;
-
-            for (let i = 1; i <= numberOfPayments; i++) {
-                const interest = beginningBalance * monthlyInterestRate;
-                const principalPaid = monthlyPayment - interest;
-                const endingBalance = beginningBalance - principalPaid;
-
-                schedule.push({
-                    month: i,
-                    beginningBalance: beginningBalance,
-                    monthlyPayment: monthlyPayment,
-                    principal: principalPaid,
-                    interest: interest,
-                    endingBalance: endingBalance,
-                });
-
-                beginningBalance = endingBalance;
-            }
-
-            setResults({
-                monthlyPayment,
-                totalPayment,
-                totalInterest,
-                amortizationSchedule: schedule,
-            });
+    const handleCalculate = () => {
+        const calculation = calculateLoan(loanAmount, interestRate, loanTerm);
+        if (calculation) {
+            setResults(calculation);
         }
     };
 
@@ -251,7 +182,7 @@ export default function LoanCalculatorPage() {
                             </Select>
                         </div>
                         <div className="flex items-end gap-2">
-                            <Button onClick={calculateLoan} className="w-full">
+                            <Button onClick={handleCalculate} className="w-full">
                                 <Calculator /> Calculate
                             </Button>
                             <Button onClick={clearCalculator} variant="outline" className="w-full">

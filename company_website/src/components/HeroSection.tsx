@@ -63,10 +63,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
               
               {/* Card 1: Explore Products Card */}
-              <div 
+              <button
                 id="hero-explore-products-card"
                 onClick={onExploreProducts}
-                className="group relative bg-[#07473f] hover:bg-[#053a33] text-white p-5 rounded-2xl cursor-pointer shadow-lg shadow-teal-950/15 transition-all duration-200 hover:-translate-y-0.5"
+                className="group relative bg-[#07473f] hover:bg-[#053a33] text-white p-5 rounded-2xl cursor-pointer shadow-lg shadow-teal-950/15 transition-all duration-200 hover:-translate-y-0.5 w-full text-left focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-xs flex items-center justify-center text-teal-200">
@@ -87,10 +87,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Card 2: White Online Application Card */}
-              <div 
+              <button
                 id="hero-apply-card"
                 onClick={onOpenApplication}
-                className="group relative bg-white hover:bg-slate-50 text-slate-900 p-5 rounded-2xl border-2 border-slate-900 cursor-pointer shadow-md transition-all duration-200 hover:-translate-y-0.5"
+                className="group relative bg-white hover:bg-slate-50 text-slate-900 p-5 rounded-2xl border-2 border-slate-900 cursor-pointer shadow-md transition-all duration-200 hover:-translate-y-0.5 w-full text-left focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center">
@@ -114,10 +114,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* AI Advisor Prompt Strip */}
             {onOpenAiAdvisor && (
-              <div 
+              <button
                 id="hero-ai-advisor-strip"
                 onClick={onOpenAiAdvisor}
-                className="mt-4 max-w-xl p-3.5 bg-gradient-to-r from-teal-500/10 via-emerald-500/10 to-teal-500/5 hover:from-teal-500/15 hover:to-emerald-500/15 border border-teal-200/80 rounded-2xl cursor-pointer flex items-center justify-between gap-3 group transition-all"
+                className="mt-4 max-w-xl p-3.5 bg-gradient-to-r from-teal-500/10 via-emerald-500/10 to-teal-500/5 hover:from-teal-500/15 hover:to-emerald-500/15 border border-teal-200/80 rounded-2xl cursor-pointer flex items-center justify-between gap-3 group transition-all w-full text-left focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform">
@@ -140,7 +140,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="w-7 h-7 rounded-full bg-white text-teal-700 flex items-center justify-center shadow-2xs group-hover:translate-x-0.5 transition-transform shrink-0">
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
-              </div>
+              </button>
             )}
 
           </div>

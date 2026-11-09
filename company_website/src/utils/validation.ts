@@ -1,5 +1,7 @@
 export const isValidEmail = (email: string): boolean => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Safe email regex avoiding catastrophic backtracking
+  // Uses negated character classes which are more efficient
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return re.test(email.trim());
 };
 

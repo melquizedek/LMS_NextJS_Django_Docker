@@ -27,7 +27,7 @@ export function useFetch<T>(fetchFn: () => Promise<T>, deps: any[] = []) {
   }, deps);
 
   useEffect(() => {
-    execute();
+    void execute();
   }, [execute]);
 
   return { ...state, refetch: execute };
