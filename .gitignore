@@ -107,6 +107,9 @@ coverage/
 .turbo/             # Turborepo cache (if used)
 *.pem               # SSL certificates
 
+# Internal docs containing sensitive setup details
+ref_docs/sonarqube-implementation.md
+
 
 # ============================================================
 # Graphify
