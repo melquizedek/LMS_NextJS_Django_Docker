@@ -45,14 +45,14 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1775491540.6463778,
-    "ast_hash": "00915830e54fa58479b0c89af7acad58",
-    "semantic_hash": "00915830e54fa58479b0c89af7acad58"
+    "mtime": 1793540284.014,
+    "ast_hash": "96f9c4e6ef5ef42b8e47e9cc30709dd3",
+    "semantic_hash": ""
   },
   "docker-compose.yml": {
-    "mtime": 1787881205.738,
-    "ast_hash": "8f8a022397321b7bb987c21bd53b59f9",
-    "semantic_hash": "8f8a022397321b7bb987c21bd53b59f9"
+    "mtime": 1794136802.227,
+    "ast_hash": "485eba1e389364d7ffc692a352b7cdd7",
+    "semantic_hash": ""
   },
   ".agents/skills/brand/scripts/extract-colors.cjs": {
     "mtime": 1789915895.0,
@@ -275,9 +275,9 @@
     "semantic_hash": "55e4e863cd9aec0e012f8e9007f6043c"
   },
   "company_website/package.json": {
-    "mtime": 1787636218.6199977,
-    "ast_hash": "5f19491d4c9b7203e28e4f79c32ec63b",
-    "semantic_hash": "5f19491d4c9b7203e28e4f79c32ec63b"
+    "mtime": 1794142614.6272016,
+    "ast_hash": "9352a1e1160715d4f00d9c7b9f4b5672",
+    "semantic_hash": ""
   },
   "company_website/postcss.config.mjs": {
     "mtime": 1787634948.8048763,
@@ -285,9 +285,9 @@
     "semantic_hash": "75d30725175ead2f191e8277dfa4edb6"
   },
   "company_website/src/components/AiChatbot.tsx": {
-    "mtime": 1787635445.7289894,
-    "ast_hash": "255fce0dd316a7a996d783d1eb021f7f",
-    "semantic_hash": "255fce0dd316a7a996d783d1eb021f7f"
+    "mtime": 1794140452.501757,
+    "ast_hash": "1de1e65c436b4944b021007cfcdb074c",
+    "semantic_hash": ""
   },
   "company_website/src/components/ClientLayout.tsx": {
     "mtime": 1787635008.1595583,
@@ -295,9 +295,9 @@
     "semantic_hash": "eff3063f1d7ecabcb9ff3d995dfa9394"
   },
   "company_website/src/components/ContactSection.tsx": {
-    "mtime": 1787635444.082523,
-    "ast_hash": "603c069244c3d1c13c1de6159b9aedd2",
-    "semantic_hash": "603c069244c3d1c13c1de6159b9aedd2"
+    "mtime": 1794140660.5376246,
+    "ast_hash": "dc0cf6f04b85fd49a621c6d546a3980f",
+    "semantic_hash": ""
   },
   "company_website/src/components/FAQSection.tsx": {
     "mtime": 1787635447.3115509,
@@ -310,9 +310,9 @@
     "semantic_hash": "2fe344e3bfb459982898e2a9d6943855"
   },
   "company_website/src/components/HeroSection.tsx": {
-    "mtime": 1787635323.999373,
-    "ast_hash": "f4b164dbdbfcaac7ef8e2bc239ae8f9a",
-    "semantic_hash": "f4b164dbdbfcaac7ef8e2bc239ae8f9a"
+    "mtime": 1794140187.7858639,
+    "ast_hash": "5ee719f2f9a39add7a05bd99f08ba8a9",
+    "semantic_hash": ""
   },
   "company_website/src/components/HowItWorksSection.tsx": {
     "mtime": 1787635332.0900707,
@@ -325,9 +325,9 @@
     "semantic_hash": "329421a6b945b742554ed3e8a0692ae3"
   },
   "company_website/src/components/Navbar.tsx": {
-    "mtime": 1787881290.585,
-    "ast_hash": "d76d5bbca0891813db40e796b973b336",
-    "semantic_hash": "d76d5bbca0891813db40e796b973b336"
+    "mtime": 1794140206.0840344,
+    "ast_hash": "606b61982693eb759cadc608c239a977",
+    "semantic_hash": ""
   },
   "company_website/src/components/SearchModal.tsx": {
     "mtime": 1787635437.810762,
@@ -420,9 +420,9 @@
     "semantic_hash": "e341417abfa079797e2087eb278ca472"
   },
   "company_website/src/hooks/useFetch.ts": {
-    "mtime": 1787600898.0,
-    "ast_hash": "3cb75604c2da3cdf70a8cf5ad060f4cb",
-    "semantic_hash": "3cb75604c2da3cdf70a8cf5ad060f4cb"
+    "mtime": 1794140212.2534552,
+    "ast_hash": "93e8478e8a1b97a8d1034719c681a247",
+    "semantic_hash": ""
   },
   "company_website/src/hooks/useForm.ts": {
     "mtime": 1787600898.0,
@@ -480,9 +480,9 @@
     "semantic_hash": "45c06b662ce9c08b36d0b5ee168cfe3d"
   },
   "company_website/src/utils/formatters.ts": {
-    "mtime": 1787600898.0,
-    "ast_hash": "96677902640b0523b612845b73b24eb7",
-    "semantic_hash": "96677902640b0523b612845b73b24eb7"
+    "mtime": 1794140227.3941758,
+    "ast_hash": "ff5c9e8234ddfd3c49673d3f2449b4a4",
+    "semantic_hash": ""
   },
   "company_website/src/utils/storage.ts": {
     "mtime": 1787600898.0,
@@ -490,9 +490,9 @@
     "semantic_hash": "599753efffc37aada2039edcca1a4f93"
   },
   "company_website/src/utils/validation.ts": {
-    "mtime": 1787600898.0,
-    "ast_hash": "f59329dd406253f60046e5a3cc04c137",
-    "semantic_hash": "f59329dd406253f60046e5a3cc04c137"
+    "mtime": 1794140466.6598501,
+    "ast_hash": "97eabe4c2c741c03ed1f956b03620094",
+    "semantic_hash": ""
   },
   "company_website/tsconfig.json": {
     "mtime": 1787634964.8344407,
@@ -565,9 +565,9 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "olap_backend_api/apps/accounts/models.py": {
-    "mtime": 1776581471.769622,
-    "ast_hash": "09732b7e4dd9b211d333d18a9798042e",
-    "semantic_hash": "09732b7e4dd9b211d333d18a9798042e"
+    "mtime": 1794139952.1185217,
+    "ast_hash": "5cd9192d65bd162d6a63127929f8105b",
+    "semantic_hash": ""
   },
   "olap_backend_api/apps/accounts/permissions.py": {
     "mtime": 1775491540.6487143,
@@ -765,9 +765,9 @@
     "semantic_hash": "509b12b1e410fd7a53094ba3c5dad43e"
   },
   "olap_web_app/package.json": {
-    "mtime": 1775491540.656415,
-    "ast_hash": "c2e6b4209642b2d39f99203afa40b939",
-    "semantic_hash": "c2e6b4209642b2d39f99203afa40b939"
+    "mtime": 1794142607.8364813,
+    "ast_hash": "94bebf00ed381a5f79a5e3b3d72b6395",
+    "semantic_hash": ""
   },
   "olap_web_app/postcss.config.mjs": {
     "mtime": 1775491540.6565168,
@@ -805,9 +805,9 @@
     "semantic_hash": "6cc73aa3f589b7e665115d07f82bd8ae"
   },
   "olap_web_app/src/app/calculator/page.tsx": {
-    "mtime": 1787665252.952,
-    "ast_hash": "e624db3773d33ce0e91a764fc9c31921",
-    "semantic_hash": "e624db3773d33ce0e91a764fc9c31921"
+    "mtime": 1794144732.3629956,
+    "ast_hash": "0e8d2e9c071f861e4c089ccb1569fac4",
+    "semantic_hash": ""
   },
   "olap_web_app/src/app/homepage/page.tsx": {
     "mtime": 1787665255.678,
@@ -830,9 +830,9 @@
     "semantic_hash": "5d3cd94380eb429750de2f3f13b94237"
   },
   "olap_web_app/src/app/signup/page.tsx": {
-    "mtime": 1787665253.53,
-    "ast_hash": "23269bf2dcc11eeb4b3eb7731e987db5",
-    "semantic_hash": "23269bf2dcc11eeb4b3eb7731e987db5"
+    "mtime": 1794145304.7470975,
+    "ast_hash": "3c019a987da58a2487c2b1024b6f9847",
+    "semantic_hash": ""
   },
   "olap_web_app/src/components/dashboard-layout.tsx": {
     "mtime": 1787665251.706,
@@ -850,9 +850,9 @@
     "semantic_hash": "7ea51ecae01882dedbbf317c61624f4a"
   },
   "olap_web_app/src/components/ui/alert.tsx": {
-    "mtime": 1775491540.6599383,
-    "ast_hash": "48dac79c18e0c3ff687c320c6fcf1590",
-    "semantic_hash": "48dac79c18e0c3ff687c320c6fcf1590"
+    "mtime": 1794140030.0219128,
+    "ast_hash": "4c357b7ee1db559160b01261b769b3ba",
+    "semantic_hash": ""
   },
   "olap_web_app/src/components/ui/avatar.tsx": {
     "mtime": 1775491540.66005,
@@ -1810,9 +1810,9 @@
     "semantic_hash": "98087aedd18375666dbb093c859b2949"
   },
   "AGENTS.md": {
-    "mtime": 1785727746.076,
-    "ast_hash": "62c05a2bf20bf036a0b2633478663e64",
-    "semantic_hash": "62c05a2bf20bf036a0b2633478663e64"
+    "mtime": 1794146271.124,
+    "ast_hash": "a67f501a838f4fa28c600d3c93c1efc9",
+    "semantic_hash": ""
   },
   "PROMPT.md": {
     "mtime": 1785464681.682,
@@ -1825,9 +1825,9 @@
     "semantic_hash": "479d5d3c630d2e15b9b7c33c3d3d88a3"
   },
   "docker-compose.prod.yml": {
-    "mtime": 1789553199.1315682,
-    "ast_hash": "5b981fb45931291eff81270ffccb9556",
-    "semantic_hash": "5b981fb45931291eff81270ffccb9556"
+    "mtime": 1793274950.328,
+    "ast_hash": "765d842729ead2fa7107b4da28034e62",
+    "semantic_hash": ""
   },
   "olap_backend_api/requirements/base.txt": {
     "mtime": 1775491540.6535072,
@@ -2070,8 +2070,108 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1789915968.842607,
-    "ast_hash": "82efb97a359f5c7290bf2513d14686be",
+    "mtime": 1794146906.987,
+    "ast_hash": "a81de1e1513e68a20c1e97a7beb96d92",
+    "semantic_hash": ""
+  },
+  "company_website/jest.config.cjs": {
+    "mtime": 1794142570.8398743,
+    "ast_hash": "e6c0a4d1e874015d3b9f819550997a18",
+    "semantic_hash": ""
+  },
+  "company_website/jest.setup.ts": {
+    "mtime": 1794142573.4067268,
+    "ast_hash": "511d72f1f1711a95c8e8fbe326129ed7",
+    "semantic_hash": ""
+  },
+  "company_website/src/hooks/useFetch.test.ts": {
+    "mtime": 1794145200.1334145,
+    "ast_hash": "9a0fb8ad8b457d4db548265b9c181335",
+    "semantic_hash": ""
+  },
+  "company_website/src/utils/cn.test.ts": {
+    "mtime": 1794145621.9800618,
+    "ast_hash": "cf4770b13f9a9ff1c921728c993df4de",
+    "semantic_hash": ""
+  },
+  "company_website/src/utils/constants.test.ts": {
+    "mtime": 1794145646.7100303,
+    "ast_hash": "c8bf51cee13ef00480678683a42dcaf8",
+    "semantic_hash": ""
+  },
+  "company_website/src/utils/formatters.test.ts": {
+    "mtime": 1794142583.370792,
+    "ast_hash": "62df8ea540d16cdc46eb9a8abda51cf7",
+    "semantic_hash": ""
+  },
+  "company_website/src/utils/validation.test.ts": {
+    "mtime": 1794144986.6004279,
+    "ast_hash": "fab510d09f2479d07961519118a6086f",
+    "semantic_hash": ""
+  },
+  "olap_web_app/jest.config.cjs": {
+    "mtime": 1794142554.0775225,
+    "ast_hash": "e6c0a4d1e874015d3b9f819550997a18",
+    "semantic_hash": ""
+  },
+  "olap_web_app/jest.config.js": {
+    "mtime": 1794145526.6187286,
+    "ast_hash": "934946b84d0878eb29d3f4e992163088",
+    "semantic_hash": ""
+  },
+  "olap_web_app/jest.setup.ts": {
+    "mtime": 1794142541.7795653,
+    "ast_hash": "511d72f1f1711a95c8e8fbe326129ed7",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/data.test.ts": {
+    "mtime": 1794145559.3356237,
+    "ast_hash": "c4c1eae021ca2756a4124a75282496cf",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/loan-calculator.test.ts": {
+    "mtime": 1794144768.2782655,
+    "ast_hash": "3a9fdc15ddee945999f9c3a415d1701f",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/loan-calculator.ts": {
+    "mtime": 1794144661.0950212,
+    "ast_hash": "26149a89d3b99be84991f30b21b4503a",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/signup-validation.test.ts": {
+    "mtime": 1794145336.080647,
+    "ast_hash": "4a76501e33f14062b65910192ba270ec",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/signup-validation.ts": {
+    "mtime": 1794145372.2539115,
+    "ast_hash": "49ff0f46b235a7da4567477d727327a5",
+    "semantic_hash": ""
+  },
+  "olap_web_app/src/lib/utils.test.ts": {
+    "mtime": 1794142417.524234,
+    "ast_hash": "622bbe4b7b1dbbfc01e6ba8db8febe2c",
+    "semantic_hash": ""
+  },
+  "AI_DEVELOPMENT_RULES.md": {
+    "mtime": 1794146906.98,
+    "ast_hash": "f2716343fe4b12b39a4d3ce30acf0cdd",
+    "semantic_hash": ""
+  },
+  "company_website/.scannerwork/report-task.txt": {
+    "mtime": 1794146955.6903503,
+    "ast_hash": "3931cfff7a1084ba1929b454edb54fe4",
+    "semantic_hash": ""
+  },
+  "olap_backend_api/.scannerwork/report-task.txt": {
+    "mtime": 1794146689.3803484,
+    "ast_hash": "6bdd537e2eb4fffae1adce7feb84d298",
+    "semantic_hash": ""
+  },
+  "olap_web_app/.scannerwork/report-task.txt": {
+    "mtime": 1794146905.8995476,
+    "ast_hash": "b9bd85823d89814fcb0fe661e171a5f3",
     "semantic_hash": ""
   }
 }
